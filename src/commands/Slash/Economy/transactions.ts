@@ -7,18 +7,6 @@ import ISlashCommand from '~/interfaces/ISlashCommand';
 import IDiscordClient from '~/interfaces/IDiscordClient';
 import { getUserBalance, getTransactions } from '~/utils/economy';
 
-/**
- * CREATE TABLE IF NOT EXISTS Transactions (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER,
-    type TEXT, -- 'earn', 'spend', 'transfer', 'tax', 'interest'
-    amount REAL,
-    description TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES Users(discord_id)
-);
-
- */
 
 const formatWord = (word: string) => {
 	return word[0].toUpperCase() + word.slice(1).toLowerCase();

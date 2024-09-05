@@ -5,7 +5,6 @@ import {
 	TextChannel,
 } from 'discord.js';
 import ISlashCommand from '~/interfaces/ISlashCommand';
-import IDiscordClient from '~/interfaces/IDiscordClient';
 import { AppDB } from '~/classes/AppDB';
 import { uuid } from '~/utils/uuid';
 import { MIN_STATS, MAX_STATS, DECAY_RATE } from '~/utils/pets';

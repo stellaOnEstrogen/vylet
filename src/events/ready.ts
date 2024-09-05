@@ -55,21 +55,6 @@ module.exports = {
 
 		await startPetSystem(client.db);
 
-		// const economyManager = new ManageEconomy(client);
-
-		// economyManager.on(
-		// 	'taxAdded',
-		// 	async (userId: string, tax: number, total: number) => {
-		// 		console.log(`Taxed user ${userId} ${tax} for a total of ${total}`);
-		// 		try {
-
-		// 			client.users.fetch(userId).then((user) => {
-		// 				user.send(`You were taxed ${tax} for a total of ${total}`);
-		// 			});
-		// 		} catch (error) {
-		// 			console.warn(`Failed to send tax message to user ${userId}`);
-		// 		}
-		// 	},
-		// );
+		
 	},
 };

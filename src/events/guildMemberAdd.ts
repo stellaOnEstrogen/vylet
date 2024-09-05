@@ -2,6 +2,7 @@ import { EmbedBuilder, Events, TextChannel } from 'discord.js';
 import IDiscordClient from '~/interfaces/IDiscordClient';
 import { AppDB } from '~/classes/AppDB';
 import { readDataFile, replaceData } from '~/utils/data';
+import { config } from '~/config';
 
 const db = AppDB.getInstance();
 
@@ -19,7 +20,7 @@ module.exports = {
 		}
 
 		const channel = client.channels.cache.get(
-			'1280692425265774622',
+			config.welcomer.channelId,
 		) as TextChannel;
 
 		if (channel) {
@@ -34,7 +35,7 @@ module.exports = {
 			username: `<@!${discordId}>`,
 			guildName: member.guild.name,
 			botName: `Vylet`,
-			rulesChannel: '<#1280692218947960934>',
+			rulesChannel: `<#${config.welcomer.rulesChannel}>`,
 		});
 
 		try {

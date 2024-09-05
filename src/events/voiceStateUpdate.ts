@@ -1,13 +1,10 @@
 import { ChannelType, Events, Message, VoiceState } from 'discord.js';
 import IDiscordClient from '~/interfaces/IDiscordClient';
+import { config } from '~/config';
 
-const CREATE_VC = '1280692381179576322';
-const VOICE_CATEGORY = '1280692153143529595';
-const NO_DELETE = [
-	'1280692370056286269',
-	'1280692375764733996',
-	'1280692381179576322',
-];
+const CREATE_VC = config.createVoice.channelId;
+const VOICE_CATEGORY = config.createVoice.categoryId;
+const NO_DELETE = config.createVoice.noDelete;
 
 module.exports = {
 	name: Events.VoiceStateUpdate,

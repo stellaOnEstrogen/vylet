@@ -1,11 +1,10 @@
-import { ChannelType, Events, Message, TextChannel } from 'discord.js';
+import { Events, Message } from 'discord.js';
 import IDiscordClient from '~/interfaces/IDiscordClient';
-import { xpToNextLevel, calculate, levelSystem } from '~/utils/levels';
+import { levelSystem } from '~/utils/levels';
+import { config } from '~/config';
 
-const STAFF_ROLE_ID = '1280691527688912996'; // Staff role ID
-const PREFIX = '!';
-const TICKET_CATEGORY_ID = '1281270443235479706'; // Ticket category ID
-const GUILD_ID = '1280689379689631794'; // Guild ID
+const STAFF_ROLE_ID = config.staffRole;
+const PREFIX = config.prefix;
 
 module.exports = {
 	name: Events.MessageCreate,
