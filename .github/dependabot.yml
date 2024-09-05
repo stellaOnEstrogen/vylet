@@ -7,3 +7,4 @@ updates:
     open-pull-requests-limit: 10
     commit-message:
       include: scope
+      prefix: "fix"  # or any other prefix you need
