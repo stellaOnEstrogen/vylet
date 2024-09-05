@@ -1,0 +1,6 @@
+{
+	"deepscan.enable": true,
+	"yaml.schemas": {
+		"https://json.schemastore.org/github-issue-forms.json": "file:///c%3A/Users/0x7ffed9b08230/Documents/source/github.com/stellaOnEstrogen/vylet/.github/ISSUE_TEMPLATE/config.yml"
+	}
+}

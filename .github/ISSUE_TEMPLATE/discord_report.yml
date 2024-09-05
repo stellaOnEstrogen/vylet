@@ -1,0 +1,43 @@
+name: Discord Bot Issue Report
+description: Report an issue with the Discord bot
+title: "[DISCORD] "
+labels: 
+  - bug
+  - discord
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Describe the bug**
+        Please provide a clear and concise description of the issue you encountered with the bot.
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: "Steps to Reproduce"
+      description: "Please describe the steps you took before encountering the issue. This helps us understand how to recreate the problem."
+      placeholder: "1. Type a command\n2. See unexpected behavior"
+
+  - type: input
+    id: expected
+    attributes:
+      label: "Expected Behavior"
+      description: "What did you expect to happen when you performed the actions?"
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: "Screenshots"
+      description: "If you have any screenshots that show the issue, please upload them here."
+
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: "Additional Information"
+      description: "Is there anything else that might be relevant or that you think we should know about?"
+
+  - type: input
+    id: username
+    attributes:
+      label: "Your Discord Username"
+      description: "Please provide your Discord username (username) so we can contact you if needed."
