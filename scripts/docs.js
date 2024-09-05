@@ -85,12 +85,15 @@ function makeCommandDocs() {
 			if (choices.length) {
 				md += '\n\n## Choices\n\n';
 
+
 				choices.forEach((option) => {
-					md += `### ${option.name}\n\n| Name | Value |\n| ---- | ----- |\n`;
+					md += `<div align="center">\n\n### ${option.name}\n\n| Name | Value |\n| ---- | ----- |\n`;
 
 					option.choices.forEach((choice) => {
 						md += `| ${choice.name} | ${choice.value} |\n`;
 					});
+
+                    md += '</div>\n\n';
 				});
 			}
 		}
