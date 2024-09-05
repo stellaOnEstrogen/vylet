@@ -8,4 +8,4 @@ Get help with the bot
 | ---- | ----------- | ---- | ---------- | ---------- | -------- | ------------ |
 | `query` | Phrase to search for | String | N/A | N/A | Yes | Yes |
 
-<div align="center"><sub>Automatically generated at 2024-09-05T20:36:35.550Z</sub></div>
+<div align="center"><sub>Automatically generated at 2024-09-05T21:19:48.789Z</sub></div>

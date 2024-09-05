@@ -11,6 +11,8 @@ Manage your pet
 
 ## Choices
 
+<div align="center">
+
 ### action
 
 | Name | Value |
@@ -23,5 +25,7 @@ Manage your pet
 | Train | train |
 | View | view |
 | Create | create |
+</div>
 
-<div align="center"><sub>Automatically generated at 2024-09-05T20:36:35.548Z</sub></div>
+
+<div align="center"><sub>Automatically generated at 2024-09-05T21:19:48.786Z</sub></div>

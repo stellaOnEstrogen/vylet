@@ -11,6 +11,8 @@ Go fishing and try to catch some fish!
 
 ## Choices
 
+<div align="center">
+
 ### location
 
 | Name | Value |
@@ -18,5 +20,7 @@ Go fishing and try to catch some fish!
 | Lake | lake |
 | River | river |
 | Ocean | ocean |
+</div>
 
-<div align="center"><sub>Automatically generated at 2024-09-05T20:36:35.548Z</sub></div>
+
+<div align="center"><sub>Automatically generated at 2024-09-05T21:19:48.787Z</sub></div>
