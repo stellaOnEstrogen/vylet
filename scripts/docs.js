@@ -18,13 +18,32 @@ if (!existsSync(docsPath)) {
 	mkdirSync(docsPath, { recursive: true });
 }
 
+function timeConverter() {
+	const options = {
+		timeZone: 'Asia/Tokyo',
+		year: 'numeric',
+		month: '2-digit',
+		day: '2-digit',
+		hour: '2-digit',
+		minute: '2-digit',
+		second: '2-digit',
+		hour12: true,
+	};
+
+	const date = new Intl.DateTimeFormat('en-US', options).format(new Date());
+	return `${date} JST (GMT+9, Tokyo)`;
+}
+
+const currentTime = timeConverter();
+
 function makeCommandDocs() {
 	const slashCommands = new Map();
 	const messageCommands = new Map();
 
+	const { readdirSync, statSync } = require('fs');
+	const { join } = require('path');
+
 	const loadFiles = (path, collection) => {
-		const exists = existsSync(path);
-		if (!exists) return;
 		const files = readdirSync(path);
 
 		files.forEach((file) => {
@@ -35,7 +54,13 @@ function makeCommandDocs() {
 				loadFiles(filePath, collection);
 			} else if (file.endsWith('.js') || file.endsWith('.ts')) {
 				const command = require(filePath);
-				collection.set(command.command.data.name, command.command);
+
+				// Handle commands with different structures
+				if (command.command && command.command.data) {
+					collection.set(command.command.data.name, command.command);
+				} else if (command.command) {
+					collection.set(command.command.name, command.command);
+				}
 			}
 		});
 	};
@@ -74,7 +99,7 @@ function makeCommandDocs() {
 		if (command.data.options) {
 			command.data.options.forEach((option) => {
 				md += `| \`${option.name}\` | ${option.description} | ${
-					types[option.type]
+					types[option.type] || 'Sub command or group'
 				} | ${option.min_length || 'N/A'} | ${option.max_length || 'N/A'} | ${
 					option.required ? 'Yes' : 'No'
 				} | ${option.autocomplete ? 'Yes' : 'No'} |\n`;
@@ -97,7 +122,7 @@ function makeCommandDocs() {
 			}
 		}
 
-		md += `\n<div align="center"><sub>Automatically generated at ${new Date().toISOString()}</sub></div>`;
+		md += `\n<div align="center"><sub>Automatically generated at ${currentTime}</sub></div>`;
 
 		const filePath = join(docsPaths.commandsSlash, `${command.data.name}.md`);
 
