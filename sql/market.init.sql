@@ -11,9 +11,12 @@ CREATE TABLE IF NOT EXISTS Transactions (
 CREATE TABLE IF NOT EXISTS Market (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     item_name TEXT,
+    item_id TEXT,
     base_price REAL, -- Changed from DECIMAL to REAL
     current_price REAL,
     demand INTEGER DEFAULT 0,
+    can_sell TEXT DEFAULT 'true',
+    owner_id TEXT DEFAULT NULL,
     supply INTEGER DEFAULT 0,
     last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

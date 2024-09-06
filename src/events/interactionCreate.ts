@@ -6,7 +6,7 @@ module.exports = {
 	once: false,
 	async execute(interaction: Interaction, client: IDiscordClient) {
 		if (interaction.user.bot) return;
-		if (interaction.isChatInputCommand()) {
+		if (interaction.isChatInputCommand() || interaction.isCommand()) {
 			const command = client.slashCommands.get(interaction.commandName);
 
 			if (!command) {

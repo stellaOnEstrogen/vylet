@@ -1,4 +1,4 @@
-import { CommandInteraction, AutocompleteInteraction } from 'discord.js';
+import { CommandInteraction, AutocompleteInteraction, SlashCommandSubcommandBuilder, SlashCommandBuilder } from 'discord.js';
 
 interface ISlashCommand {
 	//! WARN: Data is set to any because I would have to include EVERY option in the builder

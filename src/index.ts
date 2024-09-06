@@ -58,8 +58,9 @@ client.config = {
 
 async function loadCommands() {
 	const slashCommandsPath = join(__dirname, 'commands', 'Slash');
-	// const messageCommandsPath = join(__dirname, 'commands', 'Message');
+	const messageCommandsPath = join(__dirname, 'commands', 'Message');
 	const eventsPath = join(__dirname, 'events');
+
 
 	const loadFiles = (path: string, collection: Collection<any, any>) => {
 		const files = readdirSync(path);
@@ -72,13 +73,18 @@ async function loadCommands() {
 				loadFiles(filePath, collection);
 			} else if (file.endsWith('.js') || file.endsWith('.ts')) {
 				const command = require(filePath);
-				collection.set(command.command.data.name, command.command);
+
+				if (command.command.data) {
+					collection.set(command.command.data.name, command.command);
+				} else {
+					collection.set(command.command.name, command.command);
+				}
 			}
 		}
 	};
 
 	loadFiles(slashCommandsPath, client.slashCommands);
-	// loadFiles(messageCommandsPath, client.messageCommands);
+	loadFiles(messageCommandsPath, client.messageCommands);
 
 	readdirSync(eventsPath).forEach((file) => {
 		const event = require(join(eventsPath, file));
