@@ -10,4 +10,4 @@ Sell, buy, or list items in the market
 | `buy` | Buy an item from the market | Sub command or group | N/A | N/A | No | No |
 | `sell` | Sell an item to the market | Sub command or group | N/A | N/A | No | No |
 
-<div align="center"><sub>Automatically generated at 09/06/2024, 10:02:25 AM JST (GMT+9, Tokyo)</sub></div>
+<div align="center"><sub>Automatically generated at 09/06/2024, 10:15:36 AM JST (GMT+9, Tokyo)</sub></div>

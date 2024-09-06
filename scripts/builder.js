@@ -36,6 +36,7 @@ if (args.includes('-h') || args.includes('--help')) {
 	console.log('Options:');
 	console.log('  -h, --help     Display this help message');
 	console.log('  --silent, -s   Run the commands silently');
+	console.log('  --skip         Skip the specified commands');
 	console.log('Commands:');
 	commands.forEach((command) => {
 		console.log(`  ${command.name} - ${command.description}`);
@@ -46,6 +47,10 @@ if (args.includes('-h') || args.includes('--help')) {
 const isSilent = args.includes('--silent') || args.includes('-s');
 
 commands.forEach((command) => {
+	if (args.includes('--skip') && args.includes(command.name)) {
+		console.log(`[BUILDER] Skipping ${command.name} command`);
+		return;
+	}
 	console.log(
 		`[BUILDER] Running ${command.name} command ${isSilent ? 'silently' : ''}`,
 	);
