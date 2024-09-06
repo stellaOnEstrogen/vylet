@@ -54,7 +54,5 @@ module.exports = {
 		}, 5000);
 
 		await startPetSystem(client.db);
-
-		
 	},
 };

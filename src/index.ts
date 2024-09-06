@@ -61,7 +61,6 @@ async function loadCommands() {
 	const messageCommandsPath = join(__dirname, 'commands', 'Message');
 	const eventsPath = join(__dirname, 'events');
 
-
 	const loadFiles = (path: string, collection: Collection<any, any>) => {
 		const files = readdirSync(path);
 

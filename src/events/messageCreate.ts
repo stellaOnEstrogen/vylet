@@ -10,9 +10,8 @@ module.exports = {
 	name: Events.MessageCreate,
 	once: false,
 	async execute(message: Message, client: IDiscordClient) {
-		if (message.author.bot) return
+		if (message.author.bot) return;
 		if (!message.guild) return;
-
 
 		if (message.content.startsWith(PREFIX)) {
 			const args = message.content.slice(PREFIX.length).trim().split(/ +/);
@@ -24,7 +23,11 @@ module.exports = {
 			const cmd = client.messageCommands.get(command);
 			if (!cmd) return;
 
-			if (cmd.staffOnly && !message.member?.roles.cache.has(STAFF_ROLE_ID) && !isOwner) {
+			if (
+				cmd.staffOnly &&
+				!message.member?.roles.cache.has(STAFF_ROLE_ID) &&
+				!isOwner
+			) {
 				return message.reply('You do not have permission to run this command.');
 			}
 

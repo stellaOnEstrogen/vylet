@@ -7,7 +7,6 @@ import ISlashCommand from '~/interfaces/ISlashCommand';
 import IDiscordClient from '~/interfaces/IDiscordClient';
 import { getUserBalance, getTransactions } from '~/utils/economy';
 
-
 const formatWord = (word: string) => {
 	return word[0].toUpperCase() + word.slice(1).toLowerCase();
 };
