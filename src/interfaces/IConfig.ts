@@ -33,4 +33,8 @@ export default interface IConfig {
 		 */
 		rulesChannel: string;
 	};
+	/**
+	 * The ID of the channel where economy messages will be sent
+	 */
+	economyChannelId: string;
 }

@@ -114,6 +114,7 @@ class AppDB {
 	public async queryRaw<T = any>(
 		query: string,
 		values: any[] = [],
+		formatJson = true,
 	): Promise<T[]> {
 		return new Promise((resolve, reject) => {
 			this.db.all(query, values, (err, rows) => {
@@ -121,6 +122,10 @@ class AppDB {
 					console.error('Database query error:', err);
 					reject(err);
 				} else {
+					if (!formatJson) {
+						resolve(rows as T[]);
+						return;
+					}
 					const formattedRows = rows.map((row) => {
 						if (typeof row === 'object' && row !== null) {
 							for (const key in row) {
@@ -137,6 +142,19 @@ class AppDB {
 						return row;
 					});
 					resolve(formattedRows as T[]);
+				}
+			});
+		});
+	}
+
+	public async queryNoJson(query: string, values: any[] = []): Promise<any> {
+		return new Promise((resolve, reject) => {
+			this.db.all(query, values, (err, rows) => {
+				if (err) {
+					console.error('Database query error:', err);
+					reject(err);
+				} else {
+					resolve(rows);
 				}
 			});
 		});
@@ -199,7 +217,12 @@ class AppDB {
  */
 interface IAppDB {
 	query<T = any>(strings: TemplateStringsArray, ...values: any[]): Promise<T[]>;
-	queryRaw<T = any>(query: string, values?: any[]): Promise<T[]>;
+	queryRaw<T = any>(
+		query: string,
+		values?: any[],
+		formatJson?: boolean,
+	): Promise<T[]>;
+	queryNoJson(query: string, values?: any[]): Promise<any>;
 	createDatabase(): Promise<void>;
 }
 

@@ -16,4 +16,5 @@ export const config: IConfig = {
 		channelId: '1280692425265774622',
 		rulesChannel: '1280692218947960934',
 	},
+	economyChannelId: '1280692279895523419',
 };
