@@ -27,7 +27,7 @@ jobs:
         run: npm install
 
       - name: Build project
-        run: npm run build -- -sp docs
+        run: npm run build -- --skip deploy-commands
 
       - name: Generate documentation
         run: npm run docs
