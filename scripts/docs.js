@@ -96,7 +96,8 @@ function makeCommandDocs() {
 		let md = `# \`${command.data.name}\` Command\n\n${command.data.description}\n`;
 
 		if (command.data.options && command.data.options.length) {
-			md += '\n## Options\n\n| Name | Description | Type | Min Length | Max Length | Required | Autocomplete |\n| ---- | ----------- | ---- | ---------- | ---------- | -------- | ------------ |\n';
+			md +=
+				'\n## Options\n\n| Name | Description | Type | Min Length | Max Length | Required | Autocomplete |\n| ---- | ----------- | ---- | ---------- | ---------- | -------- | ------------ |\n';
 			command.data.options.forEach((option) => {
 				md += `| \`${option.name}\` | ${option.description} | ${
 					types[option.type] || 'Sub command or group'
@@ -146,9 +147,7 @@ function makeCommandDocs() {
 
 		const isAsync = execute.constructor.name === 'AsyncFunction';
 
-		md += `\n\n## Implementation\n\n${
-			isAsync ? 'Async function' : 'Function'
-		}`;
+		md += `\n\n## Implementation\n\n${isAsync ? 'Async function' : 'Function'}`;
 
 		md += `\n\n<div align="center"><sub>Automatically generated at ${currentTime}</sub></div>`;
 
