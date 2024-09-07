@@ -40,8 +40,13 @@ function makeCommandDocs() {
 	const slashCommands = new Map();
 	const messageCommands = new Map();
 
-	const { readdirSync, statSync } = require('fs');
-	const { join } = require('path');
+	if (!existsSync(docsPaths.commandsMessage)) {
+		mkdirSync(docsPaths.commandsMessage, { recursive: true });
+	}
+
+	if (!existsSync(docsPaths.commandsSlash)) {
+		mkdirSync(docsPaths.commandsSlash, { recursive: true });
+	}
 
 	const loadFiles = (path, collection) => {
 		const files = readdirSync(path);
@@ -88,15 +93,10 @@ function makeCommandDocs() {
 
 	slashDocs.forEach((command) => {
 		console.log(`[SLASH] Generating docs for ${command.data.name} command`);
-		let md = `# \`${command.data.name}\` Command\n\n${
-			command.data.description
-		}${
-			command.data.options.length ?
-				'\n\n## Options\n\n| Name | Description | Type | Min Length | Max Length | Required | Autocomplete |\n| ---- | ----------- | ---- | ---------- | ---------- | -------- | ------------ |\n'
-			:	''
-		}`;
+		let md = `# \`${command.data.name}\` Command\n\n${command.data.description}\n`;
 
-		if (command.data.options) {
+		if (command.data.options && command.data.options.length) {
+			md += '\n## Options\n\n| Name | Description | Type | Min Length | Max Length | Required | Autocomplete |\n| ---- | ----------- | ---- | ---------- | ---------- | -------- | ------------ |\n';
 			command.data.options.forEach((option) => {
 				md += `| \`${option.name}\` | ${option.description} | ${
 					types[option.type] || 'Sub command or group'
@@ -126,19 +126,40 @@ function makeCommandDocs() {
 
 		const filePath = join(docsPaths.commandsSlash, `${command.data.name}.md`);
 
-		if (!existsSync(docsPaths.commandsSlash)) {
-			mkdirSync(docsPaths.commandsSlash, { recursive: true });
+		writeFileSync(filePath, md);
+	});
+
+	messageDocs.forEach((command) => {
+		const { name, description, staffOnly, usage, execute } = command;
+
+		console.log(`[MESSAGE] Generating docs for ${name} command`);
+
+		let md = `# \`${name}\` Command\n\n${description}\n\n`;
+
+		if (usage) {
+			md += `## Usage\n\n\`\`\`\n${usage}\n\`\`\`\n`;
 		}
+
+		if (staffOnly) {
+			md += '\n\n**Staff Only**';
+		}
+
+		const isAsync = execute.constructor.name === 'AsyncFunction';
+
+		md += `\n\n## Implementation\n\n${
+			isAsync ? 'Async function' : 'Function'
+		}`;
+
+		md += `\n\n<div align="center"><sub>Automatically generated at ${currentTime}</sub></div>`;
+
+		const filePath = join(docsPaths.commandsMessage, `${name}.md`);
 
 		writeFileSync(filePath, md);
 	});
 
-	console.warn('Message commands are not supported yet!');
-
+	// Optional cleanup if necessary
 	slashCommands.clear();
 	messageCommands.clear();
-	slashDocs.length = 0;
-	messageDocs.length = 0;
 }
 
 async function generateDocs() {
