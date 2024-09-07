@@ -1,11 +1,11 @@
-# `market` Command
+# `ban` Command
 
-Add, remove, or list items in the market
+Ban a user from the server
 
 ## Usage
 
 ```
-market [add|remove|list|stock] (item) (price) (supply)
+ban <user> [reason]
 ```
 
 

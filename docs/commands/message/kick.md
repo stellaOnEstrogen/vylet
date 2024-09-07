@@ -1,11 +1,11 @@
-# `market` Command
+# `kick` Command
 
-Add, remove, or list items in the market
+Kick a user from the server
 
 ## Usage
 
 ```
-market [add|remove|list|stock] (item) (price) (supply)
+kick <user> [reason]
 ```
 
 
