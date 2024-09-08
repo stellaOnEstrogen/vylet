@@ -1,5 +1,6 @@
 import { Message, TextChannel } from 'discord.js';
 import IDiscordClient from '~/interfaces/IDiscordClient';
+import { config } from '~/config';
 
 const xpToNextLevel = (level: number) => Math.pow(level + 1, 2) * 100;
 const xpGain = Math.floor(Math.random() * 16) + 10;
@@ -7,7 +8,9 @@ const xpGain = Math.floor(Math.random() * 16) + 10;
 async function levelSystem(message: Message, client: IDiscordClient) {
 	const discordId = message.author.id.toString();
 
-	console.log(`XP gain for ${discordId}: ${xpGain}`);
+	if (!message.guild || message.author.bot) {
+		return;
+	}
 
 	const user = await client.db.queryRaw('SELECT * FROM Users WHERE id = ?', [
 		discordId,
@@ -30,6 +33,17 @@ async function levelSystem(message: Message, client: IDiscordClient) {
 
 		if (newXP >= xpToNextLevel(newLevel + 1)) {
 			newLevel += 1;
+			for (const [level, roleId] of Object.entries(
+				config.levelRoles,
+			)) {
+				if (newLevel >= parseInt(level)) {
+					const role = message.guild.roles.cache.get(roleId);
+					if (role) {
+						message.member?.roles.add(role);
+					}
+				}
+			}
+
 			await channel.send(
 				`Congratulations, <@${discordId}>! You've reached level ${newLevel}!\nYou need ${xpToNextLevel(newLevel + 1) - newXP} more XP to reach the next level.`,
 			);

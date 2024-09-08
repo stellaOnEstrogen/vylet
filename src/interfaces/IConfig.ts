@@ -37,4 +37,10 @@ export default interface IConfig {
 	 * The ID of the channel where economy messages will be sent
 	 */
 	economyChannelId: string;
+	/**
+	 * The roles that will be assigned based on the user's level
+	 */
+	levelRoles: {
+		[level: number]: string;
+	};
 }
