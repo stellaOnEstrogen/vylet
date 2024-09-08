@@ -33,9 +33,7 @@ async function levelSystem(message: Message, client: IDiscordClient) {
 
 		if (newXP >= xpToNextLevel(newLevel + 1)) {
 			newLevel += 1;
-			for (const [level, roleId] of Object.entries(
-				config.levelRoles,
-			)) {
+			for (const [level, roleId] of Object.entries(config.levelRoles)) {
 				if (newLevel >= parseInt(level)) {
 					const role = message.guild.roles.cache.get(roleId);
 					if (role) {
