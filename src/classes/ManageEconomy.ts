@@ -216,7 +216,7 @@ export default class ManageEconomy extends EventEmitter {
 
 	public async getItem(itemId: string) {
 		const item = await this.client.db.queryRaw(
-			'SELECT name FROM Market WHERE id = ?',
+			'SELECT item_name FROM Market WHERE id = ?',
 			[itemId],
 		);
 
