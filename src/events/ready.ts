@@ -95,7 +95,7 @@ module.exports = {
 				return;
 			}
 
-			const message = `The price of ${item.name} has been adjusted to $${newPrice}.`;
+			const message = `The price of ${item.item_name} has been adjusted to $${newPrice}.`;
 
 			try {
 				const channel = (await client.channels.fetch(
