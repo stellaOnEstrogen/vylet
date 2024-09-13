@@ -80,7 +80,9 @@ export default class ManageEconomy extends EventEmitter {
 
 		for (const user of users) {
 			let taxRate = BASE_TAX_RATE;
-			if (user.balance > 10000) {
+			if (user.balance === 0) {
+				return;
+			} else if (user.balance > 10000) {
 				taxRate += 0.05; // Extra 5% tax for balances over 10,000
 			}
 			const taxAmount = parseFloat(user.balance) * taxRate;
