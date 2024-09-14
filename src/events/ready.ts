@@ -58,22 +58,6 @@ module.exports = {
 
 		const economy = new ManageEconomy(client);
 
-		economy.on('taxAdded', async (userId, tax, total) => {
-			const user = await client.users.fetch(userId);
-
-			if (!user) {
-				return;
-			}
-
-			try {
-				await user.send(
-					`You were taxed ${tax} dollars. Your new balance is $${total}.`,
-				);
-			} catch (e) {
-				console.error(`Failed to send tax notification to ${user.tag}`);
-			}
-		});
-
 		economy.on('inflationApplied', async (rate) => {
 			const inflationMessage = `The economy has inflated by ${rate * 100}%!`;
 
