@@ -15,7 +15,7 @@ export class WebServerController {
             try {
                 await execPromise(step);
             } catch (error) {
-                console.error(`Error executing step "${step}": ${error}`);
+                console.error(`Error: ${error}`);
                 return res.status(500).send('Error deploying');
             }
         }
@@ -38,10 +38,8 @@ function execPromise(command: string): Promise<void> {
     return new Promise((resolve, reject) => {
         exec(command, (error, stdout, stderr) => {
             if (error) {
-                console.error(`Command failed: ${command}\n${stderr}`);
                 reject(error);
             } else {
-                console.log(`Command succeeded: ${command}\n${stdout}`);
                 resolve();
             }
         });
