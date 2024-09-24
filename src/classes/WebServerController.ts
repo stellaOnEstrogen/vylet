@@ -11,8 +11,10 @@ const STEPS = {
 
 export class WebServerController {
     private static async deploy(req: Request, res: Response) {
+        console.log(`Deploying bot. GitHub push detected.`);
         for (const step of STEPS.DEPLOY) {
             try {
+                console.log(`Executing step: ${step} (GitHub push detected)`);
                 await execPromise(step);
             } catch (error) {
                 console.error(`Error: ${error}`);
