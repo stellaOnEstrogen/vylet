@@ -4,6 +4,7 @@ import { readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { AppDB } from '~/classes/AppDB';
 import { config as dotenv } from 'dotenv';
+import { startHttpServer } from './web/server';
 
 dotenv(); // Load environment variables first
 const token = process.env.DISCORD_BOT_TOKEN;
@@ -100,6 +101,7 @@ async function loadCommands() {
 	try {
 		await loadCommands();
 		await client.login(token);
+		startHttpServer();
 	} catch (error) {
 		console.error('Error starting bot:', error);
 	}

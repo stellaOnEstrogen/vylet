@@ -12,8 +12,10 @@ app.get('/', (req: Request, res: Response) => {
 
 app.get('/gh-webhook', WebServerController.processWebhook);
 
-httpServer.listen(config.webServer.port, config.webServer.host, () => {
-	console.log(
-		`Server is running on ${config.webServer.host}:${config.webServer.port}`,
-	);
-});
+export const startHttpServer = () => {
+	httpServer.listen(config.webServer.port, config.webServer.host, () => {
+		console.log(
+			`Server is running on ${config.webServer.host}:${config.webServer.port}`,
+		);
+	});
+};
