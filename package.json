@@ -26,6 +26,7 @@
 	},
 	"homepage": "https://github.com/stellaOnEstrogen/vylet#readme",
 	"devDependencies": {
+		"@types/express": "^4.17.21",
 		"@types/helmet": "4.0.0",
 		"@types/lodash": "4.17.0",
 		"@types/node-cron": "3.0.11",
@@ -46,6 +47,7 @@
 		"discord-api-types": "^0.37.92",
 		"discord.js": "^14.15.3",
 		"dotenv": "16.4.5",
+		"express": "^4.21.0",
 		"lodash": "4.17.21",
 		"node-cache": "^5.1.2",
 		"node-cron": "3.0.3",

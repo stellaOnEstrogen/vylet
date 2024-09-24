@@ -43,4 +43,18 @@ export default interface IConfig {
 	levelRoles: {
 		[level: number]: string;
 	};
+
+	/**
+	 * Web server config
+	 */
+	webServer: {
+		/**
+		 * The port that the web server will run on
+		 */
+		port: number;
+		/**
+		 * The host that the web server will run on
+		 */
+		host: '0.0.0.0' | '127.0.0.1' | 'localhost';
+	};
 }
