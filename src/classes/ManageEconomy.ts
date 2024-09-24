@@ -2,14 +2,14 @@ import cron from 'node-cron';
 import { EventEmitter } from 'events';
 import IDiscordClient from '~/interfaces/IDiscordClient';
 
-const BASE_TAX_RATE = 0.1; // 10% base tax rate
-const INFLATION_RATE = 2.0; // 2% inflation per cycle
+const BASE_TAX_RATE = Math.random() * 0.2; // Random base tax rate between 0% and 20%
+const INFLATION_RATE = Math.random() * 5.0; // Random inflation rate between 0% and 5%
 const ECONOMY_INTERVAL = '0 0 * * *'; // Every day at midnight
 // Every 5 days at noon
 const RANDOM_EVENT_INTERVAL = '0 12 */5 * *';
-const GOVERNMENT_GRANT_AMOUNT = 300; // $300 government grant
-const BOOM_FACTOR = 1.2; // 20% boost during economic boom
-const RECESSION_FACTOR = 0.8; // 20% reduction during a recession
+const GOVERNMENT_GRANT_AMOUNT = Math.random() * 500; // Random government grant between $0 and $500
+const BOOM_FACTOR = 1 + Math.random() * 0.5; // Random boost factor between 0% and 50%
+const RECESSION_FACTOR = 0.5 + Math.random() * 0.5; // Random reduction factor between 50% and 100%
 
 interface EconomyEvent {
 	taxAdded: (userId: string, tax: number, total: number) => void;
@@ -83,7 +83,7 @@ export default class ManageEconomy extends EventEmitter {
 			if (user.balance === 0) {
 				return;
 			} else if (user.balance > 10000) {
-				taxRate += 0.05; // Extra 5% tax for balances over 10,000
+				taxRate += Math.random() * 0.1; // Extra random tax for balances over 10,000
 			}
 			const taxAmount = parseFloat(user.balance) * taxRate;
 			const newBalance = parseFloat(user.balance) - taxAmount;
