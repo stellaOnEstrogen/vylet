@@ -102,7 +102,7 @@ export const command: IMessageCommand = {
 				.addFields(
 					market.map((item) => {
 						return {
-							name: item.item_name.replace(/_/g, ' '),
+							name: `${item.item_name.replace(/_/g, ' ')} (${item.item_id})`,
 							value: `Price: $${item.current_price}, Demand: ${item.demand}, Supply: ${item.supply}`,
 							inline: true,
 						};

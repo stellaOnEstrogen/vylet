@@ -2,14 +2,9 @@ import cron from 'node-cron';
 import { EventEmitter } from 'events';
 import IDiscordClient from '~/interfaces/IDiscordClient';
 
-const BASE_TAX_RATE = Math.random() * 0.2; // Random base tax rate between 0% and 20%
-const INFLATION_RATE = Math.random() * 5.0; // Random inflation rate between 0% and 5%
 const ECONOMY_INTERVAL = '0 0 * * *'; // Every day at midnight
 // Every 5 days at noon
 const RANDOM_EVENT_INTERVAL = '0 12 */5 * *';
-const GOVERNMENT_GRANT_AMOUNT = Math.random() * 500; // Random government grant between $0 and $500
-const BOOM_FACTOR = 1 + Math.random() * 0.5; // Random boost factor between 0% and 50%
-const RECESSION_FACTOR = 0.5 + Math.random() * 0.5; // Random reduction factor between 50% and 100%
 
 interface EconomyEvent {
 	taxAdded: (userId: string, tax: number, total: number) => void;
@@ -53,7 +48,7 @@ export default class ManageEconomy extends EventEmitter {
 	private autoManageEconomy() {
 		cron.schedule(ECONOMY_INTERVAL, async () => {
 			await this.applyTaxes();
-			await this.applyInflation(INFLATION_RATE);
+			await this.applyInflation(this.getRandomInflationRate());
 			await this.adjustMarketPrices();
 		});
 	}
@@ -71,6 +66,14 @@ export default class ManageEconomy extends EventEmitter {
 		});
 	}
 
+	private getRandomBaseTaxRate(): number {
+		return Math.random() * 0.2; // Random base tax rate between 0% and 20%
+	}
+
+	private getRandomInflationRate(): number {
+		return Math.random() * 5.0; // Random inflation rate between 0% and 5%
+	}
+
 	private async applyTaxes() {
 		const users = await this.client.db.queryRaw(
 			'SELECT CAST(id AS TEXT) as id, balance FROM Users',
@@ -79,7 +82,7 @@ export default class ManageEconomy extends EventEmitter {
 		);
 
 		for (const user of users) {
-			let taxRate = BASE_TAX_RATE;
+			let taxRate = this.getRandomBaseTaxRate();
 			if (user.balance === 0) {
 				return;
 			} else if (user.balance > 10000) {
@@ -146,35 +149,35 @@ export default class ManageEconomy extends EventEmitter {
 	}
 
 	private async issueGovernmentGrants() {
+		const grantAmount = this.getRandomGovernmentGrantAmount();
 		const users = await this.client.db.queryRaw('SELECT id FROM Users');
 
 		for (const user of users) {
 			await this.client.db.queryRaw(
 				'UPDATE Users SET balance = balance + ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?',
-				[GOVERNMENT_GRANT_AMOUNT, user.id],
+				[grantAmount, user.id],
 			);
 
 			await this.recordTransaction(
 				user.id,
 				'grant',
-				GOVERNMENT_GRANT_AMOUNT,
+				grantAmount,
 				'Government grant issued',
 			);
 		}
 
-		this.emit('governmentGrantIssued', GOVERNMENT_GRANT_AMOUNT);
-		console.log(
-			`Government grant of ${GOVERNMENT_GRANT_AMOUNT} issued to all users.`,
-		);
+		this.emit('governmentGrantIssued', grantAmount);
+		console.log(`Government grant of ${grantAmount} issued to all users.`);
 	}
 
 	private async economicBoom() {
+		const boomFactor = this.getRandomBoomFactor();
 		const items = await this.client.db.queryRaw(
 			'SELECT id, base_price FROM Market',
 		);
 
 		for (const item of items) {
-			const newPrice = parseFloat(item.base_price) * BOOM_FACTOR;
+			const newPrice = parseFloat(item.base_price) * boomFactor;
 
 			await this.client.db.queryRaw(
 				'UPDATE Market SET current_price = ?, last_updated = CURRENT_TIMESTAMP WHERE id = ?',
@@ -182,17 +185,18 @@ export default class ManageEconomy extends EventEmitter {
 			);
 		}
 
-		this.emit('economicBoom', BOOM_FACTOR); // Example duration: 1 hour
+		this.emit('economicBoom', boomFactor);
 		console.log('Economic boom! Market prices increased.');
 	}
 
 	private async economicRecession() {
+		const recessionFactor = this.getRandomRecessionFactor();
 		const items = await this.client.db.queryRaw(
 			'SELECT id, base_price FROM Market',
 		);
 
 		for (const item of items) {
-			const newPrice = parseFloat(item.base_price) * RECESSION_FACTOR;
+			const newPrice = parseFloat(item.base_price) * recessionFactor;
 
 			await this.client.db.queryRaw(
 				'UPDATE Market SET current_price = ?, last_updated = CURRENT_TIMESTAMP WHERE id = ?',
@@ -223,5 +227,17 @@ export default class ManageEconomy extends EventEmitter {
 		);
 
 		return item[0];
+	}
+
+	private getRandomGovernmentGrantAmount(): number {
+		return Math.random() * 500; // Random government grant between $0 and $500
+	}
+
+	private getRandomBoomFactor(): number {
+		return 1 + Math.random() * 0.5; // Random boost factor between 0% and 50%
+	}
+
+	private getRandomRecessionFactor(): number {
+		return 0.5 + Math.random() * 0.5; // Random reduction factor between 50% and 100%
 	}
 }
